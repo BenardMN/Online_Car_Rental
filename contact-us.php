@@ -87,7 +87,7 @@ $error="Something went wrong. Please try again";
 </head>
 <body>
 
-<<!-- Start Switcher -->
+<!-- Start Switcher -->
 <?php //include('includes/colorswitcher.php');?>
 <!-- /Switcher -->  
         

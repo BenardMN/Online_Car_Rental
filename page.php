@@ -45,7 +45,7 @@ include('includes/config.php');
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
 <body>
-<<!-- Start Switcher -->
+<!-- Start Switcher -->
 <?php //include('includes/colorswitcher.php');?>
 <!-- /Switcher -->  
         
@@ -95,7 +95,7 @@ foreach($results as $result)
 
 
 
-<<!--Footer -->
+<!--Footer -->
 <?php include('includes/footer.php');?>
 <!-- /Footer--> 
 

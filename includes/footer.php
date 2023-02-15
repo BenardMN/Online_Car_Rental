@@ -34,20 +34,15 @@ echo "<script>alert('Something went wrong. Please try again');</script>";
   <div class="footer-top">
     <div class="container">
       <div class="row">
-      
         <div class="col-md-6">
           <h6>About Us</h6>
           <ul>
-
-        
-          <li><a href="page.php?type=aboutus">About Us</a></li>
+            <li><a href="page.php?type=aboutus">About Us</a></li>
             <li><a href="page.php?type=faqs">FAQs</a></li>
             <li><a href="page.php?type=privacy">Privacy</a></li>
-          <li><a href="page.php?type=terms">Terms of use</a></li>
-               <li><a href="admin/">Admin Login</a></li>
+            <li><a href="page.php?type=terms">Terms of use</a></li>
           </ul>
         </div>
-  
         <div class="col-md-3 col-sm-6">
           <h6>Subscribe Newsletter</h6>
           <div class="newsletter-form">

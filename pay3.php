@@ -43,10 +43,8 @@ if(isset($_POST['submit'])){
     <div class="container">
         <div class="row m-0">
         <?php
-        $vhid = intval($_GET['vhid']);
-        $sql = "SELECT tblvehicles.Vimage1,tblvehicles.VehiclesTitle,tblvehicles.FuelType,tblvehicles.SeatingCapacity,tblvehicles.ModelYear,tblvehicles.CarLocation,tblvehicles.PricePerDay,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.FromDate,tblbooking.ToDate from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail=:useremail";
+        $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbooking.FromDate,tblbooking.ToDate,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
         $query = $dbh -> prepare($sql);
-        $query-> bindParam(':vhid', $vhid, PDO::PARAM_STR);
         $query->execute();
         $results=$query->fetchAll(PDO::FETCH_OBJ);
         $cnt=1;
