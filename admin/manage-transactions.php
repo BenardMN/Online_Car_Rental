@@ -6,25 +6,10 @@ if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }
-else{
-if(isset($_GET['del']))
-{
-$id=$_GET['del'];
-$sql = "delete from tblbrands  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
-$msg="Page data updated  successfully";
-
-}
-
-
-
- ?>
+?>
 
 <!doctype html>
 <html lang="en" class="no-js">
-
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +18,7 @@ $msg="Page data updated  successfully";
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
 	
-	<title>Ride Poa |Admin Manage Users   </title>
+	<title>Ride Poa |Admin Manage transactions   </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -71,11 +56,9 @@ $msg="Page data updated  successfully";
 		</style>
 
 </head>
-
 <body>
-	<?php include('includes/header.php');?>
-
-	<div class="ts-main-content">
+    <?php include('includes/header.php');?>
+    <div class="ts-main-content">
 		<?php include('includes/leftbar.php');?>
 		<div class="content-wrapper">
 			<div class="container-fluid">
@@ -83,46 +66,51 @@ $msg="Page data updated  successfully";
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Registered Users</h2>
+						<h2 class="page-title">Transactions</h2>
 
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Reg Users</div>
+							<div class="panel-heading">All transactions</div>
 							<div class="panel-body">
-							<?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+							<?php if($error){?>
+                            <div class="errorWrap">
+                                <strong>ERROR</strong>:<?php echo htmlentities($error); ?> 
+                            </div><?php } 
+                            else if($msg){?>
+                            <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 								<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 									<thead>
-										<tr>
-										<th>#</th>
-												<th> Name</th>
-											<th>Email </th>
-											<th>Contact no</th>
-										<th>DOB</th>
-										<th>Address</th>
-										<th>City</th>
-										<th>Country</th>
-										<th>Reg Date</th>
-										
+                                        <tr>
+										    <th>#</th>
+										    <th>Transaction id</th>
+										    <th>Amount </th>
+										    <th>Status</th>
+										    <th>Vehicle id</th>
+										    <th>Date</th>
+										    <th>Email</th>
+										    <th>Card Number</th>
+										    <th>Expiry date</th>
+                                            <th>Holder</th>
+                                            <th>cvc</th>
 										</tr>
 									</thead>
 									<tfoot>
-										<tr>
+                                    <tr>
 										<th>#</th>
-											<th> Name</th>
-											<th>Email </th>
-											<th>Contact no</th>
-										<th>DOB</th>
-										<th>Address</th>
-										<th>City</th>
-										<th>Country</th>
-										<th>Reg Date</th>
-										</tr>
-										</tr>
+										<th>Transaction id</th>
+										<th>Amount </th>
+										<th>Status</th>
+										<th>Vehicle id</th>
+										<th>Date</th>
+										<th>Email</th>
+										<th>Card Number</th>
+										<th>Expiry date</th>
+                                        <th>Holder</th>
+                                        <th>cvc</th>
+									</tr>
 									</tfoot>
 									<tbody>
-
-									<?php $sql = "SELECT * from  tblusers ";
+<?php $sql = "SELECT * from  transactions ";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -133,30 +121,25 @@ foreach($results as $result)
 {				?>	
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->FullName);?></td>
-											<td><?php echo htmlentities($result->EmailId);?></td>
-											<td><?php echo htmlentities($result->ContactNo);?></td>
-	<td><?php echo htmlentities($result->dob);?></td>
-											<td><?php echo htmlentities($result->Address);?></td>
-											<td><?php echo htmlentities($result->City);?></td>
-											<td><?php echo htmlentities($result->Country);?></td>
-											<td><?php echo htmlentities($result->RegDate);?></td>
+											<td><?php echo htmlentities($result->txn_id);?></td>
+											<td><?php echo htmlentities($result->payment_amount);?></td>
+											<td><?php echo htmlentities($result->payment_status);?></td>
+                                            <td><?php echo htmlentities($result->vehicleId);?></td>
+											<td><?php echo htmlentities($result->created);?></td>
+											<td><?php echo htmlentities($result->payer_email);?></td>
+											<td><?php echo htmlentities($result->cardNumber);?></td>
+											<td><?php echo htmlentities($result->expiryDate);?></td>
+                                            <td><?php echo htmlentities($result->holder);?></td>
+                                            <td><?php echo htmlentities($result->cvc);?></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
 										
 									</tbody>
 								</table>
-
-						
-
 							</div>
 						</div>
-
-					
-
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -173,4 +156,3 @@ foreach($results as $result)
 	<script src="js/main.js"></script>
 </body>
 </html>
-<?php } ?>

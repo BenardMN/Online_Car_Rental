@@ -198,6 +198,24 @@ $testimonials=$query5->rowCount();
 											<a href="testimonials.php" class="block-anchor panel-footer text-center">Full Detail &nbsp; <i class="fa fa-arrow-right"></i></a>
 										</div>
 									</div>
+									<div class="col-md-3">
+										<div class="panel panel-default">
+											<div class="panel-body bk-warning text-light">
+												<div class="stat-panel text-center">
+<?php 
+$sql6 ="SELECT id from transactions ";
+$query6= $dbh -> prepare($sql6);
+$query6->execute();
+$results6=$query6->fetchAll(PDO::FETCH_OBJ);
+$transactions=$query6->rowCount();
+?>												
+													<div class="stat-panel-number h1 "><?php echo htmlentities($transactions);?></div>
+													<div class="stat-panel-title text-uppercase">Transactions</div>
+												</div>
+											</div>
+											<a href="manage-transactions.php" class="block-anchor panel-footer text-center">Full Detail &nbsp; <i class="fa fa-arrow-right"></i></a>
+										</div>
+									</div>
 								
 								</div>
 							</div>

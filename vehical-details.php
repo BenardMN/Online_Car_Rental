@@ -24,7 +24,7 @@ if(isset($_POST['submit']))
   $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId){
   //echo "<script>alert('Booking successfull.');</script>";
-    header('location:pay3.php');
+    header('location:payment.php');
 }
 else {
   echo "<script>alert('Something went wrong. Please try again');</script>";
