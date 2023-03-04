@@ -38,6 +38,7 @@ if(isset($_POST['submit'])){
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <script type="text/javascript" src="assets/payment/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AfB3FC_Sjr9Gi3FGfW5abMvnRDk0hk3SWA1GA4D2ttOr8IvmaR6IbeULB9c9L_Jsk4kyLuoLq08afclu&locale=en_KE"></script>
 </head>
 <body>
     <div class="container">
