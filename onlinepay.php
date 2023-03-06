@@ -23,8 +23,8 @@ if(isset($_POST['submit']))
   $query->execute();
   $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId){
-  echo "<script>alert('Booking successfull.');</script>";
-    //header('location:onlinepay.php');
+  //echo "<script>alert('Booking successfull.');</script>";
+    header('location:online.html');
 }
 else {
   echo "<script>alert('Something went wrong. Please try again');</script>";
@@ -76,7 +76,7 @@ else {
   <!-- /Switcher -->  
 
   <!--Header-->
-  <?php include('includes/header.php');?>
+  <?php // include('includes/header.php');?>
   <!-- /Header --> 
 
   <!--Listing-Image-Slider-->
@@ -160,155 +160,8 @@ else {
               
               <!-- Accessories -->
               <div role="tabpanel" class="tab-pane" id="accessories"> 
-                <!--Accessories-->
-                <table>
-                  <thead>
-                    <tr>
-                      <th colspan="2">Accessories</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Air Conditioner</td>
-<?php if($result->AirConditioner==1)
-{
-?>
-                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?> 
-   <td><i class="fa fa-close" aria-hidden="true"></i></td>
-   <?php } ?> </tr>
+                
 
-<tr>
-<td>AntiLock Braking System</td>
-<?php if($result->AntiLockBrakingSystem==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else {?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-                    </tr>
-
-<tr>
-<td>Power Steering</td>
-<?php if($result->PowerSteering==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-                   
-
-<tr>
-
-<td>Power Windows</td>
-
-<?php if($result->PowerWindows==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-                   
- <tr>
-<td>CD Player</td>
-<?php if($result->CDPlayer==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Leather Seats</td>
-<?php if($result->LeatherSeats==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Central Locking</td>
-<?php if($result->CentralLocking==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Power Door Locks</td>
-<?php if($result->PowerDoorLocks==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-                    </tr>
-                    <tr>
-<td>Brake Assist</td>
-<?php if($result->BrakeAssist==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php  } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Driver Airbag</td>
-<?php if($result->DriverAirbag==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
- </tr>
- 
- <tr>
- <td>Passenger Airbag</td>
- <?php if($result->PassengerAirbag==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else {?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Crash Sensor</td>
-<?php if($result->CrashSensor==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-<?php }} ?>
    
       </div>
       
@@ -318,35 +171,120 @@ else {
         <!--div class="share_vehicle">
           <p>Share: <a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a> </p>
         </div-->
-        <div class="sidebar_widget">
-          <div class="widget_heading">
-            <h5><i class="fa fa-envelope" aria-hidden="true"></i>Book Now</h5>
-          </div>
+        
           <form method="post">
-            <div class="form-group">
-              <input type="text" class="form-control" name="pickuplocation" placeholder="Pick-up Location" required>
+          <div class="container">
+        <div class="row m-0">
+            <div class="col-lg-7 pb-5 pe-lg-5">
+                <div class="row">
+                    <div class="col-12 p-5">
+                        <img src="patrol-2.jpg" alt="Nissan Patrol">
+                    </div>
+                    <div class="row m-0 bg-light">
+                        <div class="col-md-4 col-6 ps-30 my-4">
+                            <p class="text-muted">Model</p>
+                            <p class="h5 m-0"><?php echo htmlentities($result->BrandName);?></p>
+                        </div>
+                        <div class="col-md-4 col-6 ps-30 my-4">
+                            <p class="text-muted">Name</p>
+                            <p class="h5 m-0">Nissan Patrol</p>
+                        </div>
+                        <div class="col-md-4 col-6 ps-30 pe-0 my-4">
+                            <p class="text-muted">Fuel type</p>
+                            <p class="h5 m-0">Petrol</p>
+                        </div>
+                        <div class="col-md-4 col-6  ps-30 my-4">
+                            <p class="text-muted">Seats</p>
+                            <p class="h5 m-0">4</p>
+                        </div>
+                        <div class="col-md-4 col-6 ps-30 my-4">
+                            <p class="text-muted">Model year</p>
+                            <p class="h5 m-0">2022</p>
+                        </div>
+                        <div class="col-md-4 col-6 ps-30 my-4">
+                            <p class="text-muted">Location</p>
+                            <p class="h5 m-0">Thika</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <input type="text" class="form-control" name="fromdate" placeholder="From Date(dd/mm/yyyy)" required>
+            <div class="col-lg-5 p-0 ps-lg-4">
+            <!--?php 
+            $date1 = DateTime::createFromFormat('d/m/Y', $result->FromDate);
+            $date2 = DateTime::createFromFormat('d/m/Y', $result->ToDate);
+            $day_diff = $date2->diff($date1);
+            $daysLeft = $day_diff->d;
+            $totalcost = $daysLeft * $result->PricePerDay; ?-->
+                <div class="row m-0">
+                    <div class="col-12 px-4">
+                        <div class="d-flex align-items-end mt-4 mb-2">
+                            <p class="h4 m-0"><span class="pe-1">Payment Details</span></p>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="textmuted">Total days hired</p>
+                            <p class="fs-14 fw-bold"><?php echo htmlentities($daysLeft." days");?></p>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="textmuted">Price per day</p>
+                            <p class="fs-14 fw-bold"><span class="fas fa-dollar-sign pe-1"></span><?php echo htmlentities($result->PricePerDay);?></p>
+                        </div>
+                        <!--div class="d-flex justify-content-between mb-2">
+                            <p class="textmuted">Shipping</p>
+                            <p class="fs-14 fw-bold">Free</p>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <p class="textmuted">Total days hired</p>
+                            <p class="fs-14 fw-bold"><span class="fas fa-dollar-sign px-1"></span>10</p>
+                        </div-->
+                        <div class="d-flex justify-content-between mb-3">
+                            <p class="textmuted fw-bold">Total</p>
+                            <div class="d-flex align-text-top ">
+                                <span class="fas fa-dollar-sign mt-1 pe-1 fs-14 "></span><span class="h4"><?php echo htmlentities($totalcost); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 px-0">
+                        <div class="row bg-light m-0">
+                            <div class="col-12 px-4 my-4">
+                                <p class="fw-bold">Credit Card Info</p>
+                            </div>
+                            <div class="col-12 px-4">
+                                <div class="d-flex  mb-4">
+                                    <span class="">
+                                        <p class="text-muted">Card number</p>
+                                        <input class="form-control" type="text" placeholder="1234 5678 9012 3456">
+                                    </span>
+                                    <div class=" w-100 d-flex flex-column align-items-end">
+                                        <p class="text-muted">Expires</p>
+                                        <input class="form-control2" type="text" placeholder="MM/YYYY">
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-5">
+                                    <span class="me-5">
+                                        <p class="text-muted">Cardholder name</p>
+                                        <input class="form-control" type="text" placeholder="Name">
+                                    </span>
+                                    <div class="w-100 d-flex flex-column align-items-end">
+                                        <p class="text-muted">CVC</p>
+                                        <input class="form-control3" type="text" placeholder="XXX">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-12  mb-4 p-0">
+                                <div class="btn btn-primary"  onclick="window.open('index.php', '_self');"><input type="submit" class="btn btn-primary" name="submit" value="<?php print('PAY $'.$totalcost);?>"><span class="fas fa-arrow-right ps-2"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <input type="text" class="form-control" name="todate" placeholder="To Date(dd/mm/yyyy)" required>
-            </div>
-            <div class="form-group">
-              <textarea rows="4" class="form-control" name="message" placeholder="Message" required></textarea>
-            </div>
-          <?php if($_SESSION['login'])
-              {?>
-              <div class="form-group">
-                <input type="submit" class="btn"  name="submit" value="Book Now">
-              </div>
-              <?php } else { ?>
-<a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login For Book</a>
-
-              <?php } ?>
-          </form>
         </div>
+    </div>
+          </form>
       </aside>
+      <?php }} ?>
       <!--/Side-Bar--> 
     </div>
     
@@ -398,7 +336,7 @@ foreach($results as $result)
 <!--/Listing-detail--> 
 
 <!--Footer -->
-<?php include('includes/footer.php');?>
+<?php //include('includes/footer.php');?>
 <!-- /Footer--> 
 
 <!--Back to top-->

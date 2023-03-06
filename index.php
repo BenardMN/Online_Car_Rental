@@ -64,7 +64,7 @@ error_reporting(0);
 <!-- /Banners --> 
 
 
-<!-- Resent Cat-->
+<!-- Recent Cat-->
 <section class="section-padding gray-bg">
   <div class="container">
     <div class="section-header text-center">
