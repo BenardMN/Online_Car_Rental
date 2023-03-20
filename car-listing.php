@@ -3,7 +3,6 @@ session_start();
 include('includes/config.php');
 error_reporting(0);
 ?>
-
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -26,16 +25,14 @@ error_reporting(0);
 <link href="assets/css/bootstrap-slider.min.css" rel="stylesheet">
 <!--FontAwesome Font Style -->
 <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-
 <!-- SWITCHER -->
-		<link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
-		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
-		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
-		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
-		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
-		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
-		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
-        
+<link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
+<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
+<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
+<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
+<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
+<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
+<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
@@ -44,34 +41,10 @@ error_reporting(0);
 <link rel="shortcut icon" href="assets/images/favicon-icon/favicon.png">
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
-<body>
-
-<!-- Start Switcher -->
-<?php //include('includes/colorswitcher.php');?>
-<!-- /Switcher -->  
-
+<body>  
 <!--Header--> 
 <?php include('includes/header.php');?>
 <!-- /Header --> 
-
-<!--Page Header>
-<section class="page-header listing_page">
-  <div class="container">
-    <div class="page-header_wrap">
-      <div class="page-heading">
-        <h1>Car Listing</h1>
-      </div>
-      <ul class="coustom-breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li>Car Listing</li>
-      </ul>
-    </div>
-  </div>
-  <! Dark Overlay>
-  <div class="dark-overlay"></div>
-</section-->
-<!-- /Page Header--> 
-
 <!--Listing-->
 <section class="listing-page">
   <div class="container">
@@ -91,7 +64,6 @@ $cnt=$query->rowCount();
 <p><span><?php echo htmlentities($cnt);?> Listings</span></p>
 </div>
 </div>
-
 <?php $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
 $query = $dbh -> prepare($sql);
 $query->execute();
@@ -118,7 +90,6 @@ foreach($results as $result)
         </div>
       <?php }} ?>
          </div>
-      
       <!--Side-Bar-->
       <aside class="col-md-3 col-md-pull-9">
         <div class="sidebar_widget">
@@ -130,7 +101,6 @@ foreach($results as $result)
               <div class="form-group select">
                 <select class="form-control" name="brand">
                   <option>Select Brand</option>
-
                   <?php $sql = "SELECT * from  tblbrands ";
                   $query = $dbh -> prepare($sql);
                   $query->execute();
@@ -152,14 +122,12 @@ foreach($results as $result)
                   <option value="CNG">CNG</option>
                 </select>
               </div>
-             
               <div class="form-group">
                 <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Car</button>
               </div>
             </form>
           </div>
         </div>
-
         <div class="sidebar_widget">
           <div class="widget_heading">
             <h5><i class="fa fa-car" aria-hidden="true"></i> Recently Listed Cars</h5>
@@ -175,7 +143,6 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {  ?>
-
               <li class="gray-bg">
                 <div class="recent_post_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" alt="image"></a> </div>
                 <div class="recent_post_title"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a>
@@ -183,7 +150,6 @@ foreach($results as $result)
                 </div>
               </li>
               <?php }} ?>
-              
             </ul>
           </div>
         </div>
@@ -193,27 +159,20 @@ foreach($results as $result)
   </div>
 </section>
 <!-- /Listing--> 
-
 <!--Footer -->
 <?php include('includes/footer.php');?>
 <!-- /Footer--> 
-
 <!--Back to top-->
 <div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> </div>
 <!--/Back to top--> 
-
 <!--Login-Form -->
 <?php include('includes/login.php');?>
 <!--/Login-Form --> 
-
 <!--Register-Form -->
 <?php include('includes/registration.php');?>
-
 <!--/Register-Form --> 
-
 <!--Forgot-password-Form -->
 <?php include('includes/forgotpassword.php');?>
-
 <!-- Scripts --> 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script> 
@@ -225,6 +184,5 @@ foreach($results as $result)
 <!--Slider-JS--> 
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
-
 </body>
 </html>

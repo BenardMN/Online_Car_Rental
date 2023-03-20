@@ -1,367 +1,137 @@
-<?php 
+<?php
 session_start();
-include('includes/config.php');
-error_reporting(0);
-if(isset($_POST['submit']))
-{
-  $picklocation = $_POST['pickuplocation'];
-  $fromdate=$_POST['fromdate'];
-  $todate=$_POST['todate']; 
-  $message=$_POST['message'];
-  $useremail=$_SESSION['login'];
-  $status=0;
-  $vhid=$_GET['vhid'];
-  $sql="INSERT INTO  tblbooking(userEmail,PickUpLocation,VehicleId,FromDate,ToDate,message,Status) VALUES(:useremail,:pickuplocation,:vhid,:fromdate,:todate,:message,:status)";
-  $query = $dbh->prepare($sql);
-  $query->bindParam(':useremail',$useremail,PDO::PARAM_STR);
-  $query->bindParam(':pickuplocation', $picklocation, PDO::PARAM_STR);
-  $query->bindParam(':vhid',$vhid,PDO::PARAM_STR);
-  $query->bindParam(':fromdate',$fromdate,PDO::PARAM_STR);
-  $query->bindParam(':todate',$todate,PDO::PARAM_STR);
-  $query->bindParam(':message',$message,PDO::PARAM_STR);
-  $query->bindParam(':status',$status,PDO::PARAM_STR);
-  $query->execute();
-  $lastInsertId = $dbh->lastInsertId();
-if($lastInsertId){
-  //echo "<script>alert('Booking successfull.');</script>";
-    header('location:online.html');
-}
-else {
-  echo "<script>alert('Something went wrong. Please try again');</script>";
-}
-}
+$price = $_SESSION['dailyprice'];
+$name = $_SESSION['vname'];
 ?>
-
-<!DOCTYPE HTML>
-<html lang="en">
-  <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
-  <title>Ride Poa | Vehicle Details</title>
-  <!--Bootstrap -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
-  <!--Custome Style -->
-  <link rel="stylesheet" href="assets/css/style.css" type="text/css">
-  <!--OWL Carousel slider-->
-  <link rel="stylesheet" href="assets/css/owl.carousel.css" type="text/css">
-  <link rel="stylesheet" href="assets/css/owl.transitions.css" type="text/css">
-  <!--slick-slider -->
-  <link href="assets/css/slick.css" rel="stylesheet">
-  <!--bootstrap-slider -->
-  <link href="assets/css/bootstrap-slider.min.css" rel="stylesheet">
-  <!--FontAwesome Font Style -->
-  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-
-  <!-- SWITCHER -->
-	<link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/favicon-icon/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="assets/images/favicon-icon/apple-touch-icon-57-precomposed.png">
-  <link rel="shortcut icon" href="assets/images/favicon-icon/favicon.png">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-</head>
+<html>
 <body>
-  <!-- Start Switcher -->
-  <?php //include('includes/colorswitcher.php');?>
-  <!-- /Switcher -->  
-
-  <!--Header-->
-  <?php // include('includes/header.php');?>
-  <!-- /Header --> 
-
-  <!--Listing-Image-Slider-->
-  <?php 
-  $vhid=intval($_GET['vhid']);
-  $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.id=:vhid";
-  $query = $dbh -> prepare($sql);
-  $query->bindParam(':vhid',$vhid, PDO::PARAM_STR);
-  $query->execute();
-  $results=$query->fetchAll(PDO::FETCH_OBJ);
-  $cnt=1;
-  if($query->rowCount() > 0){
-    foreach($results as $result)
-    {  
-      $_SESSION['brndid']=$result->bid;  ?>  
-      
-      <section id="listing_img_slider">
-      <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image" width="900" height="560"></div>
-      <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage2);?>" class="img-responsive" alt="image" width="900" height="560"></div>
-      <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage3);?>" class="img-responsive" alt="image" width="900" height="560"></div>
-      <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage4);?>" class="img-responsive"  alt="image" width="900" height="560"></div>
-      <?php if($result->Vimage5==""){} 
-      else { ?>
-      <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage5);?>" class="img-responsive" alt="image" width="900" height="560"></div>
-      <?php } ?>
-      </section>
-      <!--/Listing-Image-Slider-->
-
-
-<!--Listing-detail-->
-<section class="listing-detail">
-  <div class="container">
-    <div class="listing_detail_head row">
-      <div class="col-md-9">
-        <h2><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></h2>
-      </div>
-      <div class="col-md-3">
-        <div class="price_info">
-        <ul><li><i class="fa fa-map-marker" aria-hidden="true"></i><?php echo htmlentities($result->CarLocation);?></li></ul>
-          <p>$<?php echo htmlentities($result->PricePerDay);?> </p>Per Day
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-9">
-        <div class="main_features">
-          <ul>
-          
-            <li> <i class="fa fa-calendar" aria-hidden="true"></i>
-              <h5><?php echo htmlentities($result->ModelYear);?></h5>
-              <p>Reg.Year</p>
-            </li>
-            <li> <i class="fa fa-cogs" aria-hidden="true"></i>
-              <h5><?php echo htmlentities($result->FuelType);?></h5>
-              <p>Fuel Type</p>
-            </li>
-       
-            <li> <i class="fa fa-user-plus" aria-hidden="true"></i>
-              <h5><?php echo htmlentities($result->SeatingCapacity);?></h5>
-              <p>Seats</p>
-            </li>
-          </ul>
-        </div>
-        <div class="listing_more_info">
-          <div class="listing_detail_wrap"> 
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs gray-bg" role="tablist">
-              <li role="presentation" class="active"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Vehicle Overview </a></li>
-          
-              <li role="presentation"><a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">Accessories</a></li>
-            </ul>
-            
-            <!-- Tab panes -->
-            <div class="tab-content"> 
-              <!-- vehicle-overview -->
-              <div role="tabpanel" class="tab-pane active" id="vehicle-overview">
-                
-                <p><?php echo htmlentities($result->VehiclesOverview);?></p>
-              </div>
-              
-              
-              <!-- Accessories -->
-              <div role="tabpanel" class="tab-pane" id="accessories"> 
-                
-
-   
-      </div>
-      
-      <!--Side-Bar-->
-      <aside class="col-md-3">
-      
-        <!--div class="share_vehicle">
-          <p>Share: <a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a> </p>
-        </div-->
-        
-          <form method="post">
-          <div class="container">
-        <div class="row m-0">
-            <div class="col-lg-7 pb-5 pe-lg-5">
-                <div class="row">
-                    <div class="col-12 p-5">
-                        <img src="patrol-2.jpg" alt="Nissan Patrol">
-                    </div>
-                    <div class="row m-0 bg-light">
-                        <div class="col-md-4 col-6 ps-30 my-4">
-                            <p class="text-muted">Model</p>
-                            <p class="h5 m-0"><?php echo htmlentities($result->BrandName);?></p>
-                        </div>
-                        <div class="col-md-4 col-6 ps-30 my-4">
-                            <p class="text-muted">Name</p>
-                            <p class="h5 m-0">Nissan Patrol</p>
-                        </div>
-                        <div class="col-md-4 col-6 ps-30 pe-0 my-4">
-                            <p class="text-muted">Fuel type</p>
-                            <p class="h5 m-0">Petrol</p>
-                        </div>
-                        <div class="col-md-4 col-6  ps-30 my-4">
-                            <p class="text-muted">Seats</p>
-                            <p class="h5 m-0">4</p>
-                        </div>
-                        <div class="col-md-4 col-6 ps-30 my-4">
-                            <p class="text-muted">Model year</p>
-                            <p class="h5 m-0">2022</p>
-                        </div>
-                        <div class="col-md-4 col-6 ps-30 my-4">
-                            <p class="text-muted">Location</p>
-                            <p class="h5 m-0">Thika</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 p-0 ps-lg-4">
-            <!--?php 
-            $date1 = DateTime::createFromFormat('d/m/Y', $result->FromDate);
-            $date2 = DateTime::createFromFormat('d/m/Y', $result->ToDate);
-            $day_diff = $date2->diff($date1);
-            $daysLeft = $day_diff->d;
-            $totalcost = $daysLeft * $result->PricePerDay; ?-->
-                <div class="row m-0">
-                    <div class="col-12 px-4">
-                        <div class="d-flex align-items-end mt-4 mb-2">
-                            <p class="h4 m-0"><span class="pe-1">Payment Details</span></p>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <p class="textmuted">Total days hired</p>
-                            <p class="fs-14 fw-bold"><?php echo htmlentities($daysLeft." days");?></p>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <p class="textmuted">Price per day</p>
-                            <p class="fs-14 fw-bold"><span class="fas fa-dollar-sign pe-1"></span><?php echo htmlentities($result->PricePerDay);?></p>
-                        </div>
-                        <!--div class="d-flex justify-content-between mb-2">
-                            <p class="textmuted">Shipping</p>
-                            <p class="fs-14 fw-bold">Free</p>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2">
-                            <p class="textmuted">Total days hired</p>
-                            <p class="fs-14 fw-bold"><span class="fas fa-dollar-sign px-1"></span>10</p>
-                        </div-->
-                        <div class="d-flex justify-content-between mb-3">
-                            <p class="textmuted fw-bold">Total</p>
-                            <div class="d-flex align-text-top ">
-                                <span class="fas fa-dollar-sign mt-1 pe-1 fs-14 "></span><span class="h4"><?php echo htmlentities($totalcost); ?></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 px-0">
-                        <div class="row bg-light m-0">
-                            <div class="col-12 px-4 my-4">
-                                <p class="fw-bold">Credit Card Info</p>
-                            </div>
-                            <div class="col-12 px-4">
-                                <div class="d-flex  mb-4">
-                                    <span class="">
-                                        <p class="text-muted">Card number</p>
-                                        <input class="form-control" type="text" placeholder="1234 5678 9012 3456">
-                                    </span>
-                                    <div class=" w-100 d-flex flex-column align-items-end">
-                                        <p class="text-muted">Expires</p>
-                                        <input class="form-control2" type="text" placeholder="MM/YYYY">
-                                    </div>
-                                </div>
-                                <div class="d-flex mb-5">
-                                    <span class="me-5">
-                                        <p class="text-muted">Cardholder name</p>
-                                        <input class="form-control" type="text" placeholder="Name">
-                                    </span>
-                                    <div class="w-100 d-flex flex-column align-items-end">
-                                        <p class="text-muted">CVC</p>
-                                        <input class="form-control3" type="text" placeholder="XXX">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row m-0">
-                            <div class="col-12  mb-4 p-0">
-                                <div class="btn btn-primary"  onclick="window.open('index.php', '_self');"><input type="submit" class="btn btn-primary" name="submit" value="<?php print('PAY $'.$totalcost);?>"><span class="fas fa-arrow-right ps-2"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-          </form>
-      </aside>
-      <?php }} ?>
-      <!--/Side-Bar--> 
-    </div>
-    
-    <div class="space-20"></div>
-    <div class="divider"></div>
-    
-    <!--Similar-Cars-->
-    <div class="similar_cars">
-      <h3>Similar Cars</h3>
-      <div class="row">
-<?php 
-$bid=$_SESSION['brndid'];
-$sql="SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.CarLocation,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id,tblvehicles.SeatingCapacity,tblvehicles.VehiclesOverview,tblvehicles.Vimage1 from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.VehiclesBrand=:bid";
-$query = $dbh -> prepare($sql);
-$query->bindParam(':bid',$bid, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{ ?>      
-        <div class="col-md-3 grid_listing">
-          <div class="product-listing-m gray-bg">
-            <div class="product-listing-img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image" /> </a>
-            </div>
-            <div class="product-listing-content">
-              <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></a></h5>
-              <p class="list-price">$<?php echo htmlentities($result->PricePerDay);?></p>
-          
-              <ul class="features_list">
-                
-             <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity);?> seats</li>
-                <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear);?> model</li>
-                <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType);?></li>
-                <li><i class="fa fa-map-marker" aria-hidden="true"></i><?php echo htmlentities($result->CarLocation);?></li>
-              </ul>
-            </div>
-          </div>
-        </div>
- <?php }} ?>       
-
-      </div>
-    </div>
-    <!--/Similar-Cars--> 
-    
+	<head>
+		<title>paypal</title>
+	</head>
+<!--form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="8EP37R4F8W2U8">
+<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form-->
+<div id="smart-button-container">
+    <div style="text-align: center;"><label for="description">Vehicle Name: </label><input type="text" name="descriptionInput" id="description" maxlength="127" value=""></div>
+      <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
+    <div style="text-align: center"><label for="amount">Price per day: </label><input name="amountInput" type="number" id="amount" value="<?php echo $price; ?>" ><span> USD</span></div>
+      <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>
+    <div id="invoiceidDiv" style="text-align: center; display: none;"><label for="invoiceid"> </label><input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="" ></div>
+      <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p>
+    <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div>
   </div>
-</section>
-<!--/Listing-detail--> 
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+  <script>
+  function initPayPalButton() {
+    var description = document.querySelector('#smart-button-container #description');
+    var amount = document.querySelector('#smart-button-container #amount');
+    var descriptionError = document.querySelector('#smart-button-container #descriptionError');
+    var priceError = document.querySelector('#smart-button-container #priceLabelError');
+    var invoiceid = document.querySelector('#smart-button-container #invoiceid');
+    var invoiceidError = document.querySelector('#smart-button-container #invoiceidError');
+    var invoiceidDiv = document.querySelector('#smart-button-container #invoiceidDiv');
 
-<!--Footer -->
-<?php //include('includes/footer.php');?>
-<!-- /Footer--> 
+    var elArr = [description, amount];
 
-<!--Back to top-->
-<div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> </div>
-<!--/Back to top--> 
+    if (invoiceidDiv.firstChild.innerHTML.length > 1) {
+      invoiceidDiv.style.display = "block";
+    }
 
-<!--Login-Form -->
-<?php include('includes/login.php');?>
-<!--/Login-Form --> 
+    var purchase_units = [];
+    purchase_units[0] = {};
+    purchase_units[0].amount = {};
 
-<!--Register-Form -->
-<?php include('includes/registration.php');?>
+    function validate(event) {
+      return event.value.length > 0;
+    }
 
-<!--/Register-Form --> 
+    paypal.Buttons({
+      style: {
+        color: 'gold',
+        shape: 'rect',
+        label: 'paypal',
+        layout: 'vertical',
+        
+      },
 
-<!--Forgot-password-Form -->
-<?php include('includes/forgotpassword.php');?>
+      onInit: function (data, actions) {
+        actions.disable();
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script> 
-<script src="assets/js/interface.js"></script> 
-<script src="assets/switcher/js/switcher.js"></script>
-<script src="assets/js/bootstrap-slider.min.js"></script> 
-<script src="assets/js/slick.min.js"></script> 
-<script src="assets/js/owl.carousel.min.js"></script>
+        if(invoiceidDiv.style.display === "block") {
+          elArr.push(invoiceid);
+        }
 
+        elArr.forEach(function (item) {
+          item.addEventListener('keyup', function (event) {
+            var result = elArr.every(validate);
+            if (result) {
+              actions.enable();
+            } else {
+              actions.disable();
+            }
+          });
+        });
+      },
+
+      onClick: function () {
+        if (description.value.length < 1) {
+          descriptionError.style.visibility = "visible";
+        } else {
+          descriptionError.style.visibility = "hidden";
+        }
+
+        if (amount.value.length < 1) {
+          priceError.style.visibility = "visible";
+        } else {
+          priceError.style.visibility = "hidden";
+        }
+
+        if (invoiceid.value.length < 1 && invoiceidDiv.style.display === "block") {
+          invoiceidError.style.visibility = "visible";
+        } else {
+          invoiceidError.style.visibility = "hidden";
+        }
+
+        purchase_units[0].description = description.value;
+        purchase_units[0].amount.value = amount.value;
+
+        if(invoiceid.value !== '') {
+          purchase_units[0].invoice_id = invoiceid.value;
+        }
+      },
+
+      createOrder: function (data, actions) {
+        return actions.order.create({
+          purchase_units: purchase_units,
+        });
+      },
+
+      onApprove: function (data, actions) {
+        return actions.order.capture().then(function (orderData) {
+
+          // Full available details
+          console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+          // Show a success message within this page, e.g.
+          const element = document.getElementById('paypal-button-container');
+          element.innerHTML = '';
+          element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+          // Or go to another URL:  actions.redirect('thank_you.html');
+          //window.location.href = "index.php";
+          
+        });
+      },
+
+      onError: function (err) {
+        console.log(err);
+      }
+    }).render('#paypal-button-container');
+  }
+  initPayPalButton();
+  </script>
 </body>
 </html>

@@ -23,8 +23,8 @@ if(isset($_POST['submit']))
   $query->execute();
   $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId){
-  echo "<script>alert('Booking successfull.');</script>";
-    //header('location:onlinepay.php');
+  //echo "<script>alert('Booking successfull.');</script>";
+  header('location:onlinepay.php');
 }
 else {
   echo "<script>alert('Something went wrong. Please try again');</script>";
@@ -54,15 +54,15 @@ else {
   <link href="assets/css/bootstrap-slider.min.css" rel="stylesheet">
   <!--FontAwesome Font Style -->
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-
   <!-- SWITCHER -->
-	<link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
-	<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
+  <link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
+		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
+		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
+		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
+		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
+		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
+		<link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
+
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/favicon-icon/apple-touch-icon-114-precomposed.html">
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/favicon-icon/apple-touch-icon-72-precomposed.png">
@@ -70,10 +70,7 @@ else {
   <link rel="shortcut icon" href="assets/images/favicon-icon/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
-<body>
-  <!-- Start Switcher -->
-  <?php //include('includes/colorswitcher.php');?>
-  <!-- /Switcher -->  
+<body> 
 
   <!--Header-->
   <?php include('includes/header.php');?>
@@ -91,7 +88,9 @@ else {
   if($query->rowCount() > 0){
     foreach($results as $result)
     {  
-      $_SESSION['brndid']=$result->bid;  ?>  
+      $_SESSION['brndid']=$result->bid;
+      $_SESSION['dailyprice']=$result->PricePerDay;
+      $_SESSION['vname'] = $result->VehiclesTitle;  ?>  
       
       <section id="listing_img_slider">
       <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image" width="900" height="560"></div>
@@ -170,154 +169,112 @@ else {
                   <tbody>
                     <tr>
                       <td>Air Conditioner</td>
-<?php if($result->AirConditioner==1)
-{
-?>
+                      <?php 
+                      if($result->AirConditioner==1){?>
                       <td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?> 
-   <td><i class="fa fa-close" aria-hidden="true"></i></td>
-   <?php } ?> </tr>
-
-<tr>
-<td>AntiLock Braking System</td>
-<?php if($result->AntiLockBrakingSystem==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else {?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-                    </tr>
-
-<tr>
-<td>Power Steering</td>
-<?php if($result->PowerSteering==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-                   
-
-<tr>
-
-<td>Power Windows</td>
-
-<?php if($result->PowerWindows==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-                   
- <tr>
-<td>CD Player</td>
-<?php if($result->CDPlayer==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Leather Seats</td>
-<?php if($result->LeatherSeats==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Central Locking</td>
-<?php if($result->CentralLocking==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Power Door Locks</td>
-<?php if($result->PowerDoorLocks==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
+                      <?php } else { ?> 
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?> 
                     </tr>
                     <tr>
-<td>Brake Assist</td>
-<?php if($result->BrakeAssist==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php  } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Driver Airbag</td>
-<?php if($result->DriverAirbag==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
- </tr>
- 
- <tr>
- <td>Passenger Airbag</td>
- <?php if($result->PassengerAirbag==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else {?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
-<tr>
-<td>Crash Sensor</td>
-<?php if($result->CrashSensor==1)
-{
-?>
-<td><i class="fa fa-check" aria-hidden="true"></i></td>
-<?php } else { ?>
-<td><i class="fa fa-close" aria-hidden="true"></i></td>
-<?php } ?>
-</tr>
-
+                      <td>AntiLock Braking System</td>
+                      <?php if($result->AntiLockBrakingSystem==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else {?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Power Steering</td>
+                      <?php if($result->PowerSteering==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else { ?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Power Windows</td>
+                      <?php if($result->PowerWindows==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else { ?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>CD Player</td>
+                      <?php if($result->CDPlayer==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else { ?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Leather Seats</td>
+                      <?php if($result->LeatherSeats==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else { ?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Central Locking</td>
+                      <?php if($result->CentralLocking==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else { ?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Power Door Locks</td>
+                      <?php if($result->PowerDoorLocks==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else { ?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Brake Assist</td>
+                      <?php if($result->BrakeAssist==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php  } else { ?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Driver Airbag</td>
+                      <?php if($result->DriverAirbag==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else { ?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Passenger Airbag</td>
+                      <?php if($result->PassengerAirbag==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else {?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
+                    <tr>
+                      <td>Crash Sensor</td>
+                      <?php if($result->CrashSensor==1){?>
+                      <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                      <?php } else { ?>
+                      <td><i class="fa fa-close" aria-hidden="true"></i></td>
+                      <?php } ?>
+                    </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          
         </div>
 <?php }} ?>
-   
       </div>
       
       <!--Side-Bar-->
       <aside class="col-md-3">
-      
-        <!--div class="share_vehicle">
-          <p>Share: <a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a> </p>
-        </div-->
         <div class="sidebar_widget">
           <div class="widget_heading">
             <h5><i class="fa fa-envelope" aria-hidden="true"></i>Book Now</h5>
@@ -335,15 +292,11 @@ else {
             <div class="form-group">
               <textarea rows="4" class="form-control" name="message" placeholder="Message" required></textarea>
             </div>
-          <?php if($_SESSION['login'])
-              {?>
-              <div class="form-group">
-                <input type="submit" class="btn"  name="submit" value="Book Now">
-              </div>
-              <?php } else { ?>
-<a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login For Book</a>
-
-              <?php } ?>
+            <?php if($_SESSION['login']){?>
+            <input type="submit" class="btn"  name="submit" value="Book Now" >
+            <?php } else { ?>
+              <a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login For Book</a>
+            <?php } ?>
           </form>
         </div>
       </aside>
@@ -368,7 +321,8 @@ $cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{ ?>      
+{ 
+  $_SESSION['dailyprice']=$result->PricePerDay; ?>      
         <div class="col-md-3 grid_listing">
           <div class="product-listing-m gray-bg">
             <div class="product-listing-img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image" /> </a>
@@ -424,6 +378,5 @@ foreach($results as $result)
 <script src="assets/js/bootstrap-slider.min.js"></script> 
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
-
 </body>
 </html>
