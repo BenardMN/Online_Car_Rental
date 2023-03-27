@@ -68,8 +68,8 @@ error_reporting(0);
 <section class="section-padding gray-bg">
   <div class="container">
     <div class="section-header text-center">
-      <h2>Find the Best Car For Hire</h2>
-      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+      <h2>Find the Best Car for Hire</h2>
+      <p>Find a wide range of economy and luxury car models available across the country, with both short and long term hire options available. We pride ourselves on providing world class service to a range of customer needs, with car hire deals available all year round. So whether you are looking for car hire on a budget, or you want to rent a luxury car for an event, Ride Poa has the perfect car for you.</p>
     </div>
     <div class="row"> 
       
@@ -136,7 +136,7 @@ foreach($results as $result)
       <div class="col-lg-3 col-xs-6 col-sm-3">
         <div class="fun-facts-m">
           <div class="cell">
-            <h2><i class="fa fa-car" aria-hidden="true"></i>1200+</h2>
+            <h2><i class="fa fa-car" aria-hidden="true"></i>1500+</h2>
             <p>Bookings</p>
           </div>
         </div>

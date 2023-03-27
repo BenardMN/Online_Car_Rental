@@ -284,10 +284,11 @@ else {
               <input type="text" class="form-control" name="pickuplocation" placeholder="Pick-up Location" required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="fromdate" placeholder="From Date(dd/mm/yyyy)" required>
+            
+              <input id="txtDate" type="text" class="form-control" name="fromdate" placeholder="From Date(dd/mm/yyyy)" required>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="todate" placeholder="To Date(dd/mm/yyyy)" required>
+              <input id="txtDate1" type="text" class="form-control" name="todate" placeholder="To Date(dd/mm/yyyy)" required>
             </div>
             <div class="form-group">
               <textarea rows="4" class="form-control" name="message" placeholder="Message" required></textarea>
@@ -378,5 +379,26 @@ foreach($results as $result)
 <script src="assets/js/bootstrap-slider.min.js"></script> 
 <script src="assets/js/slick.min.js"></script> 
 <script src="assets/js/owl.carousel.min.js"></script>
+ <!-- Bootstrap -->
+ <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css' media="screen" />
+    <!-- Bootstrap -->
+    <!-- Bootstrap DatePicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <!-- Bootstrap DatePicker -->
+    <script type="text/javascript">
+        $(function () {
+            $('#txtDate').datepicker({
+                format: "dd/mm/yyyy"
+            });
+        });
+        $(function () {
+            $('#txtDate1').datepicker({
+                format: "dd/mm/yyyy"
+            });
+        });
+    </script>
 </body>
 </html>
