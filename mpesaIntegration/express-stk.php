@@ -80,25 +80,35 @@ if (isset($_GET['phone'])) {
     $_SESSION['ResponseDescription'] = $result['ResponseDescription'];
     $_SESSION['CustomerMessage'] = $result['CustomerMessage'];
 
-    if ($result['ResponseCode'] === "0") {         //STK Push request successful
-
-        $MerchantRequestID = $result['MerchantRequestID'];
-        $CheckoutRequestID = $result['CheckoutRequestID'];
-
-        //Saves your request to a database
+    if ($result['ResponseCode'] === "0") {
         // include("connection/connect.php");
-        $db = mysqli_connect("localhost", "shakingmachine_iorder", "icb*lGIIq;Q5", "shakingmachine_onlinefoodphp");
+        $db = mysqli_connect("localhost", "shakingmachine_burt_car", "P@4s%#6bX?jc", "shakingmachine_online_car_rental");
         if ($db) {
             echo "db connected!";
         } else {
             echo "db not connected!";
-        }
+        }      //STK Push request successful
+        $MerchantRequestID = $result['MerchantRequestID'];
+        $CheckoutRequestID = $result['CheckoutRequestID'];
+        $ResponseCode = $result['ResponseCode'];
+        $user_id_email = $_SESSION['login'];
+        $sql_uid = "SELECT id FROM `tblusers` WHERE `EmailId` = '$user_id_email'";
+        $sql_uid_result = mysqli_query($db, $sql_uid);
+        $row = mysqli_fetch_assoc($sql_uid_result);
+        $uid = $row['id'];
+        $_SESSION['uid'] = $uid;
 
-        $sql = "INSERT INTO `orders`(`order_no`, `amount`, `phone`, `CheckoutRequestID`, `MerchantRequestID`) VALUES ('$orderNo', '$amount', '$phone', '$CheckoutRequestID', '$MerchantRequestID')";
+        //Saves your request to a database
+
+
+        $sql = "INSERT INTO `payments`(`uid` ,`MerchantRequestID`, `CheckoutRequestID`, `ResponseCode`, `phone`, `order_id`) VALUES ('$uid', '$MerchantRequestID', '$CheckoutRequestID', '$ResponseCode', '$phone', '$orderNo')";
         $sql_result = mysqli_query($db, $sql);
+        // get previous insert id
+        $last_id = mysqli_insert_id($db);
         if ($sql_result) {
             echo "sql entered!";
             $_SESSION['result'] = $result;
+            $_SESSION['last_id'] = $last_id;
             $_SESSION["MerchantRequestID"] = $MerchantRequestID;
             $_SESSION["CheckoutRequestID"] = $CheckoutRequestID;
             $_SESSION["phone"] = $phone;
