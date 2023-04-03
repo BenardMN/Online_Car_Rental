@@ -209,16 +209,62 @@ error_reporting(0);
     <?php include('includes/footer.php'); ?>
     <!-- /Footer-->
 
+<<<<<<< HEAD
     <!--Back to top-->
     <div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> </div>
     <!--/Back to top-->
+=======
+<!--Testimonial >
+<section class="section-padding testimonial-section parallex-bg">
+  <div class="container div_zindex">
+    <div class="section-header white-text text-center">
+      <h2>Our Satisfied <span>Customers</span></h2>
+    </div>
+    <div class="row">
+      <div id="testimonial-slider">
+<?php 
+$tid=1;
+$sql = "SELECT tbltestimonial.Testimonial,tblusers.FullName from tbltestimonial join tblusers on tbltestimonial.UserEmail=tblusers.EmailId where tbltestimonial.status=:tid";
+$query = $dbh -> prepare($sql);
+$query->bindParam(':tid',$tid, PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+$cnt=1;
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+{  ?>
+>>>>>>> 61f9bba4532f0cb5dd1fb6fcce5385dce34009c0
 
     <!--Login-Form -->
     <?php include('includes/login.php'); ?>
     <!--/Login-Form -->
 
+<<<<<<< HEAD
     <!--Register-Form -->
     <?php include('includes/registration.php'); ?>
+=======
+        <div class="testimonial-m">
+          <div class="testimonial-img"> <img src="assets/images/cat-profile.png" alt="" /> </div>
+          <div class="testimonial-content">
+            <div class="testimonial-heading">
+              <h5><?php //echo htmlentities($result->FullName);?></h5>
+            <p><?php //echo htmlentities($result->Testimonial);?></p>
+          </div>
+        </div>
+        </div>
+        <?php }} ?>
+        
+       
+  
+      </div>
+    </div>
+  </div>
+  <-- Dark Overlay->
+  <div class="dark-overlay"></div>
+</section>
+<-- /Testimonial--> 
+>>>>>>> 61f9bba4532f0cb5dd1fb6fcce5385dce34009c0
 
     <!--/Register-Form -->
 

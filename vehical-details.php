@@ -323,7 +323,8 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result)
 { 
-  $_SESSION['dailyprice']=$result->PricePerDay; ?>      
+  $_SESSION['dailyprice']=$result->PricePerDay;
+  $_SESSION['vname'] = $result->VehiclesTitle; ?>      
         <div class="col-md-3 grid_listing">
           <div class="product-listing-m gray-bg">
             <div class="product-listing-img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id);?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1);?>" class="img-responsive" alt="image" /> </a>
