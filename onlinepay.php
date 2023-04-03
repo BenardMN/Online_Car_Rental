@@ -15,7 +15,7 @@ $name = $_SESSION['vname'];
 <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form-->
 <div id="smart-button-container">
-    <div style="text-align: center;"><label for="description">Vehicle Name: </label><input type="text" name="descriptionInput" id="description" maxlength="127" value="<?php //echo @$name; ?>"></div>
+    <div style="text-align: center;"><label for="description">Vehicle Name: </label><input type="text" name="descriptionInput" id="description" maxlength="127" value="<?php echo $name; ?>"></div>
       <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
     <div style="text-align: center"><label for="amount">Price per day: </label><input name="amountInput" type="number" id="amount" value="<?php echo $price; ?>" ><span> USD</span></div>
       <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>

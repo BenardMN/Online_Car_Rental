@@ -165,7 +165,7 @@ foreach($results as $result)
 <!-- /Fun Facts--> 
 
 
-<!--Testimonial -->
+<!--Testimonial >
 <section class="section-padding testimonial-section parallex-bg">
   <div class="container div_zindex">
     <div class="section-header white-text text-center">
@@ -191,8 +191,8 @@ foreach($results as $result)
           <div class="testimonial-img"> <img src="assets/images/cat-profile.png" alt="" /> </div>
           <div class="testimonial-content">
             <div class="testimonial-heading">
-              <h5><?php echo htmlentities($result->FullName);?></h5>
-            <p><?php echo htmlentities($result->Testimonial);?></p>
+              <h5><?php //echo htmlentities($result->FullName);?></h5>
+            <p><?php //echo htmlentities($result->Testimonial);?></p>
           </div>
         </div>
         </div>
@@ -203,10 +203,10 @@ foreach($results as $result)
       </div>
     </div>
   </div>
-  <!-- Dark Overlay-->
+  <-- Dark Overlay->
   <div class="dark-overlay"></div>
 </section>
-<!-- /Testimonial--> 
+<-- /Testimonial--> 
 
 
 <!--Footer -->
