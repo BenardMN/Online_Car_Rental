@@ -1,6 +1,7 @@
 <?php
 
-echo '<a href="index.php">Home<br /></a>';
+echo '<a href="https://iorder.shaking-machine.com/online_car_rental/index.php">Home<br /></a>';
+header("refresh:5;url=https://iorder.shaking-machine.com/online_car_rental/index.php");
 
 $content = file_get_contents('php://input'); //Receives the JSON Result from safaricom
 $res = json_decode($content, true); //Convert the json to an array
