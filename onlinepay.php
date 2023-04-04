@@ -95,13 +95,14 @@ if (isset($_GET['ref'])) {
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    // Redirect to success page
-                    window.location.href = 'success.php';
+                    // Redirect to success page, with PayPal response
+                    var url = "success.php?paypal_response=" + JSON.stringify(details);
+                    window.location.href = url;
                 });
             }
         }).render('#invoiceidDiv');
     </script>
-
+    <!-- http://localhost/projectexe/Online_Car_Rental/Online_Car_Rental/success.php?paypal_response={%22id%22:%223GC22164T6282350S%22,%22intent%22:%22CAPTURE%22,%22status%22:%22COMPLETED%22,%22purchase_units%22:[{%22reference_id%22:%22default%22,%22amount%22:{%22currency_code%22:%22USD%22,%22value%22:%22200.00%22},%22payee%22:{%22email_address%22:%22sb-4346ob8166531@business.example.com%22,%22merchant_id%22:%22ZZ2Q244CWPGNN%22},%22shipping%22:{%22name%22:{%22full_name%22:%22John%20Doe%22},%22address%22:{%22address_line_1%22:%22Free%20Trade%20Zone%22,%22admin_area_2%22:%22Nairobi%22,%22postal_code%22:%2200521%22,%22country_code%22:%22KE%22}},%22payments%22:{%22captures%22:[{%22id%22:%2208439585C5594082D%22,%22status%22:%22COMPLETED%22,%22amount%22:{%22currency_code%22:%22USD%22,%22value%22:%22200.00%22},%22final_capture%22:true,%22seller_protection%22:{%22status%22:%22ELIGIBLE%22,%22dispute_categories%22:[%22ITEM_NOT_RECEIVED%22,%22UNAUTHORIZED_TRANSACTION%22]},%22create_time%22:%222023-04-04T05:47:29Z%22,%22update_time%22:%222023-04-04T05:47:29Z%22}]}}],%22payer%22:{%22name%22:{%22given_name%22:%22John%22,%22surname%22:%22Doe%22},%22email_address%22:%22sb-ezvrg8166530@personal.example.com%22,%22payer_id%22:%22LH9X7GT42P32Y%22,%22address%22:{%22country_code%22:%22KE%22}},%22create_time%22:%222023-04-04T05:47:14Z%22,%22update_time%22:%222023-04-04T05:47:29Z%22,%22links%22:[{%22href%22:%22https://api.sandbox.paypal.com/v2/checkout/orders/3GC22164T6282350S%22,%22rel%22:%22self%22,%22method%22:%22GET%22}]} -->
 </body>
 
 </html>
