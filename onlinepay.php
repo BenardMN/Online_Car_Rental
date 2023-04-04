@@ -31,139 +31,77 @@ if (isset($_GET['ref'])) {
 <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form-->
-    <div id="smart-button-container container">
-        <div style="text-align: center;">
-            <label for="description">Vehicle Name: </label>
-            <input type="text" name="descriptionInput" id="description" maxlength="127" value="<?php echo $name; ?>">
+    <div class="container mt-5 mx-auto">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 justify-content-center align-items-center">
+                <div class="card p-3">
+                    <!-- title -->
+                    <h1 class="text-center">VPMS Checkout</h1>
+                    <div class="d-flex flex-row align-items-center justify-content-between text-white">
+                        <div class="d-flex flex-row align-items-center">
+                            <i class="fa fa-angle-left"></i>
+                            <span class="ml-2">Vehicle Name:</span>
+                        </div>
+                        <!-- <div class="image mr-3">
+                            <img src="https://i.imgur.com/0LKZQYM.jpg" class="rounded-circle" width="30" />
+                        </div> -->
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <input type="text" class="form-control" name="descriptionInput" id="description" maxlength="127" value="<?php echo $name; ?>" placeholder="Vehicle Name" required>
+                        <div class="invalid-feedback">Please enter a description</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Price per day: </label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="amountInput" id="amount" value="<?php echo $price; ?>" placeholder="Price per day" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text">USD</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lipa Mpesa -->
+                    <div class="mt-4" style="margin: 10px 0;">
+                        <a href="checkout.php?ref=<?php echo $ref; ?>&total=<?php echo $price; ?>" class="btn btn-success btn-block">Lipa na Mpesa</a>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <div id="invoiceidDiv">
+
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div>
+                </div>
+            </div>
         </div>
-        <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
-        <div style="text-align: center">
-            <label for="amount">Price per day: </label>
-            <input name="amountInput" type="number" id="amount" value="<?php echo $price; ?>"><span> USD</span>
-        </div>
-        <!-- lipa mpesa -->
-        <div class="mpesa my-6" style="text-align: center;">
-            <a href="checkout.php?ref=<?php echo $ref; ?>&total=<?php echo $price; ?>" class="btn btn-success align-center">Lipa na Mpesa</a>
-        </div>
-        <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>
-        <div id="invoiceidDiv" style="text-align: center; display: none;">
-            <label for="invoiceid"> </label>
-            <input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="<?php echo $ref; ?>">
-        </div>
-        <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p>
-        <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div>
     </div>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+    <!-- <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script> -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ARe70XLTQPZhu9bdxC22ky4VQfA9zdO1iat7oZmWsKNm4uGl8I0ubk3n5RQO3VCHy130Q6Nylt0ks9sX"></script>
+
     <script>
-        function initPayPalButton() {
-            var description = $('#description').val();
-            var amount = $('#amount').val();
-            var descriptionError = $('#descriptionError');
-            var priceError = $('#priceLabelError');
-            var invoiceid = $('#invoiceid').val();
-            var invoiceidError = $('#invoiceidError');
-            var invoiceidDiv = $('#invoiceidDiv');
-
-            var elArr = [description, amount];
-
-            /* if (invoiceidDiv.firstChild.innerHTML.length > 1) {
-                invoiceidDiv.style.display = "block";
-            } */
-
-            var purchase_units = [];
-            purchase_units[0] = {};
-            purchase_units[0].amount = {};
-
-            function validate(event) {
-                return event.value.length > 0;
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '<?php echo $price; ?>'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Redirect to success page
+                    window.location.href = 'success.php';
+                });
             }
-
-            paypal.Buttons({
-                style: {
-                    color: 'gold',
-                    shape: 'rect',
-                    label: 'paypal',
-                    layout: 'vertical',
-
-                },
-
-                onInit: function(data, actions) {
-                    actions.disable();
-
-                    if (invoiceidDiv.style.display === "block") {
-                        elArr.push(invoiceid);
-                    }
-
-                    elArr.forEach(function(item) {
-                        item.addEventListener('keyup', function(event) {
-                            var result = elArr.every(validate);
-                            if (result) {
-                                actions.enable();
-                            } else {
-                                actions.disable();
-                            }
-                        });
-                    });
-                },
-
-                onClick: function() {
-                    if (description.value.length < 1) {
-                        descriptionError.style.visibility = "visible";
-                    } else {
-                        descriptionError.style.visibility = "hidden";
-                    }
-
-                    if (amount.value.length > 1) {
-                        priceError.style.visibility = "visible";
-                    } else {
-                        priceError.style.visibility = "hidden";
-                    }
-
-                    if (invoiceid.value.length < 1 && invoiceidDiv.style.display === "block") {
-                        invoiceidError.style.visibility = "visible";
-                    } else {
-                        invoiceidError.style.visibility = "hidden";
-                    }
-
-                    purchase_units[0].description = description.value;
-                    purchase_units[0].amount.value = amount.value;
-
-                    if (invoiceid.value !== '') {
-                        purchase_units[0].invoice_id = invoiceid.value;
-                    }
-                },
-
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: purchase_units,
-                    });
-                },
-
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(orderData) {
-
-                        // Full available details
-                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-
-                        // Show a success message within this page, e.g.
-                        const element = document.getElementById('paypal-button-container');
-                        element.innerHTML = '';
-                        element.innerHTML = '<h3>Thank you for your payment!</h3>';
-
-                        // Or go to another URL:  actions.redirect('thank_you.html');
-                        //window.location.href = "index.php";
-
-                    });
-                },
-
-                onError: function(err) {
-                    console.log(err);
-                }
-            }).render('#paypal-button-container');
-        }
-        initPayPalButton();
+        }).render('#invoiceidDiv');
     </script>
+
 </body>
 
 </html>
